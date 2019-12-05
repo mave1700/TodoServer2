@@ -10,5 +10,6 @@ namespace Repository
             :base(repositoryContext)
         {
         }
+
     }
 }
