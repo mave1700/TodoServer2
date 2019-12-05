@@ -4,10 +4,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoServer2", "TodoServer2\TodoServer2.csproj", "{585CF506-3BBA-4FCB-A5DF-BBD78F31E9A8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BE405AC2-F3F0-46B1-A94B-C9AB9472B1B2} = {BE405AC2-F3F0-46B1-A94B-C9AB9472B1B2}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{0D9A814E-94C8-4105-945C-0425C101661F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "Contracts\Contracts.csproj", "{0D9A814E-94C8-4105-945C-0425C101661F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggerService", "LoggerService\LoggerService.csproj", "{D30DA2DA-12E5-4D91-9CB7-82184E35598E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoggerService", "LoggerService\LoggerService.csproj", "{D30DA2DA-12E5-4D91-9CB7-82184E35598E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entities.csproj", "{3727EB61-995C-41FB-A4C1-39E241F717B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{BE405AC2-F3F0-46B1-A94B-C9AB9472B1B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +34,14 @@ Global
 		{D30DA2DA-12E5-4D91-9CB7-82184E35598E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D30DA2DA-12E5-4D91-9CB7-82184E35598E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D30DA2DA-12E5-4D91-9CB7-82184E35598E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3727EB61-995C-41FB-A4C1-39E241F717B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3727EB61-995C-41FB-A4C1-39E241F717B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3727EB61-995C-41FB-A4C1-39E241F717B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3727EB61-995C-41FB-A4C1-39E241F717B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE405AC2-F3F0-46B1-A94B-C9AB9472B1B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE405AC2-F3F0-46B1-A94B-C9AB9472B1B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE405AC2-F3F0-46B1-A94B-C9AB9472B1B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE405AC2-F3F0-46B1-A94B-C9AB9472B1B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
