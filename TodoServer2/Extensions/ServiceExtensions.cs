@@ -1,11 +1,14 @@
 ﻿using Contracts;
 using Entities;
 using LoggerService;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Repository;
+using System.Text;
 
 namespace TodoServer2.Extensions
 {
@@ -45,6 +48,29 @@ namespace TodoServer2.Extensions
         public static void ConfigureRepositoryWrapper(this IServiceCollection services)
         {
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+        }
+
+        public static void ConfigureAuthentication(this IServiceCollection services)
+        {
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+
+                    ValidIssuer = "https://localhost:44341",
+                    ValidAudience = "https://localhost:44341",
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("verySecretKeyHiddenWell@748"))
+                };
+            });
         }
 
     }

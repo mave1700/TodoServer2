@@ -28,6 +28,7 @@ namespace TodoServer2
             services.ConfigureLoggerService();
             services.ConfigureMySqlContext(Configuration);
             services.ConfigureRepositoryWrapper();
+            services.ConfigureAuthentication();
             services.AddControllers();
         }
 
@@ -46,6 +47,8 @@ namespace TodoServer2
             app.UseCors("CorsPolicy");
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
