@@ -6,6 +6,10 @@ namespace Contracts
     public interface IUserRepository : IRepositoryBase<User>
     {
         User GetUserWithDetails(Guid userId);
-        User GetUserByUsername(string userName);
+        User GetUserWithDetails(string userName);
+
+        User GetUser(Guid userId);
+        User GetUser(string userName);
+
     }
 }

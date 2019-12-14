@@ -21,7 +21,20 @@ namespace Repository
                 .FirstOrDefault();
         }
 
-        public User GetUserByUsername(string userName)
+        public User GetUserWithDetails(string userName)
+        {
+            return FindByCondition(user => user.Username.Equals(userName))
+                .Include(ts => ts.Tasks)
+                .FirstOrDefault();
+        }
+
+        public User GetUser(Guid userId)
+        {
+            return FindByCondition(user => user.Id.Equals(userId))
+                .FirstOrDefault();
+        }
+
+        public User GetUser(string userName)
         {
             return FindByCondition(user => user.Username.Equals(userName))
                 .FirstOrDefault();

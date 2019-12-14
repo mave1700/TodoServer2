@@ -28,27 +28,32 @@ namespace TodoServer2.Controllers
         {
             try
             {
-                if(login == null)
+                if(login.Username == null || login.Password == null)
                 {
-                    return BadRequest("Invalid client request, login object was empty");
+                    return BadRequest("Invalid client request, login credentials are missing");
                 }
 
-                var user = _repository.User.GetUserByUsername(login.Username);
+                var user = _repository.User.GetUser(login.Username);
 
                 if (user == null)
                 {
                     _logger.LogError($"User with username {login.Username} was not found in database");
-                    return Unauthorized("Invalid client request, user name does not exist in database");
+                    return Unauthorized("Login credentials was wrong, access denied");
                 }
 
                 if (user.Username.Equals(login.Username) && user.Password.Equals(login.Password))
                 {
                     var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("verySecretKeyHiddenWell@748"));
+                    var claimsList = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name, user.Username)
+                    };
 
                     var tokenOptions = new JwtSecurityToken(
                         issuer: "https://localhost:44341",
-                        claims: new List<Claim>(),
-                        expires: DateTime.Now.AddMinutes(30),
+                        audience: "https://localhost:44341",
+                        claims: claimsList,
+                        expires: DateTime.Now.AddDays(1),
                         signingCredentials: new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256)
                     );
                     var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
@@ -57,7 +62,7 @@ namespace TodoServer2.Controllers
 
                 else
                 {
-                    return Unauthorized("Invalid client request, login details doesn't match");
+                    return Unauthorized("Login credentials was wrong, access denied");
                 }
             }
             catch (Exception ex)
