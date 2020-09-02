@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -51,6 +52,46 @@ namespace TodoServer2.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"Something went wrong inside GetUserWithDetails action: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult CreateUser(UserForCreationDto user)
+        {
+            try
+            {
+                if (user == null)
+                {
+                    _logger.LogError("User object sent from client is null");
+                    return BadRequest("User object is null");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    _logger.LogError("Invalid user object sent from client");
+                    return BadRequest("Invalid model object");
+                }
+
+                User existingUser = _repository.User.GetUser(user.Username);
+
+                if (existingUser != null)
+                {
+                    return StatusCode((int) HttpStatusCode.Conflict, "Username already exists");
+                }
+
+                var userEntity = _mapper.Map<User>(user);
+
+                _repository.User.CreateUser(userEntity);
+                _repository.Save();
+
+                var createdUser = _mapper.Map<UserDto>(userEntity);
+
+                return Ok(createdUser);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong inside CreateUser action: {ex.Message}");
                 return StatusCode(500, "Internal server error");
             }
         }

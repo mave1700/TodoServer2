@@ -14,6 +14,11 @@ namespace Repository
         {
         }
 
+        public void CreateUser (User user)
+        {
+            Create(user);
+        }
+
         public User GetUserWithDetails(Guid userId)
         {
             return FindByCondition(user => user.Id.Equals(userId))

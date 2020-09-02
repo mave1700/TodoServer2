@@ -5,6 +5,7 @@ namespace Contracts
 {
     public interface IUserRepository : IRepositoryBase<User>
     {
+        void CreateUser(User user);
         User GetUserWithDetails(Guid userId);
         User GetUserWithDetails(string userName);
 

@@ -8,6 +8,7 @@ namespace TodoServer2
         public MappingProfile()
         {
             CreateMap<User, UserDto>();
+            CreateMap<UserForCreationDto, User>();
             CreateMap<Task, TaskDto>();
         }
     }

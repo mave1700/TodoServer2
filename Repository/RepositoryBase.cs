@@ -2,6 +2,7 @@
 using Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Repository
 {
@@ -18,7 +19,7 @@ namespace Repository
             return RepositoryContext.Set<T>().AsNoTracking();
         }
 
-        public IQueryable<T> FindByCondition(System.Linq.Expressions.Expression<System.Func<T, bool>> expression)
+        public IQueryable<T> FindByCondition(Expression<System.Func<T, bool>> expression)
         {
             return RepositoryContext.Set<T>().Where(expression).AsNoTracking();
         }
@@ -29,12 +30,12 @@ namespace Repository
 
         public void Delete(T entity)
         {
-            RepositoryContext.Set<T>().Update(entity);
+            RepositoryContext.Set<T>().Remove(entity);
         }
 
         public void Update(T entity)
         {
-            RepositoryContext.Set<T>().Remove(entity);
+            RepositoryContext.Set<T>().Update(entity);
         }
     }
 }
